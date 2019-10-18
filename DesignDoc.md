@@ -17,3 +17,35 @@ In order to oversee a collection of bots, it helps to see the collection of bots
 
 ### Bot restriction
 Although bots should be built with restrictions in place, that's rather like saying buildings should be built in a fire-averse manner. It's certainly true, but it's nice to have a sprinkler system in place. T-BIT should be able to set restrictions on bots including used bandwidth, sent messages, etc. and enforce them proactively.
+
+# Structure
+## Main modules and classes
+### Bot Manager
+The Bot Manager acts as a central control point for all active bots.
+
+### Command Line
+The Command Line is a class that controls the terminal command line, including command parsing and argument forwarding.
+
+### Central Log
+The Central Log writes to and reads from the global data files, taking requests from and passing data on to the other modules.
+
+### Data files and logs
+#### Phonebook
+The phonebook is a central .json file containing known user:id and chat:id pairs, along with relevant data.
+
+## Bots
+### Bot
+The main Bot script builds the connection with the API, manages the command handler and includes some universal bot commands.
+
+### Personality core
+A personality core is a .json file that includes information for a unique bot. This means information such as the API key, name and description. A bot only has one personality core.
+
+### Functionality core
+A functionality core is a python module that includes a set of commands and their corresponding functions. These can be used to give a bot extended functionality, and a bot can have multiple functionality cores.
+
+### Data files and logs
+#### Bot log
+The bot log is a .csv file containing event logs for the bot, including timestamps.
+
+#### Bot state
+The bot state is a .json file for persistent storage of data such as flags and other states.
