@@ -12,6 +12,9 @@ Modularity is reasonable easy to implement, but hard to convince yourself to imp
 ### Proper data access
 Sometimes data should be shared between bots. Sometimes data should be accessable (and editable) by just one bot, as if the data belonged to it specifically. Although it's always easy to meet one of these conditions, using both, and using them the right way, is the tricky part. T-BIT should organise a central administration as well as a local administration for each bot, meaning data and log files are always sufficiently safe and sufficiently accesible.
 
+### Parallelism
+Since bots should be able to run independently from oneanother, it would be useful if they could be run in parallel to allow for large collections of bots. This means requires the use of the multiprocessing module, as wel as making sure that all central systems are thread-safe.
+
 ### Status insight
 In order to oversee a collection of bots, it helps to see the collection of bots. To help with this T-BIT will implement basic monitoring of currently active bots.
 
