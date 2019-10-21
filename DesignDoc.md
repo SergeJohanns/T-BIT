@@ -40,6 +40,9 @@ The phonebook is a central .json file containing known user:id and chat:id pairs
 ### Bot
 The main Bot script builds the connection with the API, manages the command handler and includes some universal bot commands.
 
+### Bot logger
+The bot logger serves as the interface between the bot class and it's personal logs, as well as fetching the personality cores.
+
 ### Personality core
 A personality core is a .json file that includes information for a unique bot. This means information such as the API key, name and description. A bot only has one personality core.
 
