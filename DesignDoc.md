@@ -9,6 +9,9 @@ The main goal of T-BIT is not just to be a slightly more extensive bot library, 
 ### Modularity
 Modularity is reasonable easy to implement, but hard to convince yourself to implement if you feel like it won't matter. Sooner or later, the modules are too interdependent to change out without breaking things and all that's left is a regular, non-modular system. T-BIT should be built with modularity in mind and made to interact with modular systems to keep the system structure overseeable.
 
+### Single-session flexability
+While it is important to design the system in such a way that subsystems are modular and flexible, it should be kept in mind that merely being able to load any arbitrary module is insufficient. Since T-BIT is a management system for multiple bots, not just a framework for singular bot objects, it should not be necissary to reboot the system for simple changes to take effect. Rebooting should be necissary as little as possible.
+
 ### Proper data access
 Sometimes data should be shared between bots. Sometimes data should be accessable (and editable) by just one bot, as if the data belonged to it specifically. Although it's always easy to meet one of these conditions, using both, and using them the right way, is the tricky part. T-BIT should organise a central administration as well as a local administration for each bot, meaning data and log files are always sufficiently safe and sufficiently accesible.
 
