@@ -2,7 +2,7 @@
 
 class CommandLine:
     # Serves as the command line interface for the system
-    def __init__(self, managerData, localisation):
+    def __init__(self, managerData):
         self.commandChar = ":"
         self.commands = dict([])
         self.rawcommands = {"q quit exit shutdown": self.Stop,
@@ -12,7 +12,6 @@ class CommandLine:
                             "i info": self.Info,
                             "c credit credits": self.Credit}
         self.managerData = managerData
-        self.localisation = localisation
         for rawcommand in self.rawcommands: # Split space-seperated synonyms
             for command in rawcommand.split(" "):
                 self.commands[command] = self.rawcommands[rawcommand]
@@ -69,6 +68,6 @@ class CommandLine:
         self.Display("This command is not recognised")
 
 if __name__ == "__main__": # Default command line
-    commandLine = CommandLine(None, None)
+    commandLine = CommandLine(None)
     commandLine.Splash()
     commandLine.Listen()

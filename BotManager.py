@@ -27,7 +27,7 @@ class BotInterface:
             self.botIDs.append((self.botID, token))
             self.botID += 1
         else: # Give an error when the token is already used
-            commandLine.GiveError(localisation["botduplicateerror"])
+            commandLine.GiveError("This bot token is alreaady in use. Bot tokens should not be used multiple times in parallel")
     def StopBot(self, token):
         for bot in self.bots:
             if self.bots[bot].personalityCore["token"] == token: # If the bot is the one to be stopped
@@ -75,8 +75,7 @@ def ShutDown():
 
 # Global access
 language = "EN"
-localisation = CentralLog.GetLocalisation(language)
-commandLine = CommandLine(None, None)
+commandLine = CommandLine(None)
 sanityChecker = SanityChecker()
 
 # Main
@@ -90,6 +89,6 @@ if __name__ == "__main__":
             "stop":ShutDown
         }
     }
-    commandLine = CommandLine(managerData, localisation)
+    commandLine = CommandLine(managerData)
     commandLine.Listen()
     #botInterface.NewBot()
