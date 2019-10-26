@@ -53,3 +53,5 @@ class Bot:
         self.updater.start_polling(clean = self.cleanStart) # If clean = True all updates from before the bot was turned on will be ignored 
     def Stop(self):
         self.updater.stop() # Tell the updater to stop running
+    def Seppuku(self): # Forces bot termination by manager
+        self.managerData["callbacks"]["stopbot"](self.personalityCore["token"])

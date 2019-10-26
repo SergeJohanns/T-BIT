@@ -61,7 +61,7 @@ except Exception as e: print(FAIL + ": {}".format(e))
 
 # Test Command Line
 from CommandLine import CommandLine
-commandLine = CommandLine()
+commandLine = CommandLine(None, None)
 
 """ TESTS
 Give error

@@ -2,14 +2,16 @@
 
 import json
 
-personalityCoresDir = "./Cores/PersonalityCores/"
+personalityCoresDir = "Cores/PersonalityCores/"
 localisationDir = "./Localisation/"
 localisationSuffix = ".json"
 
 def GetBotToken(personalityCoreFile):
-    with open(personalityCoresDir + personalityCoreFile, 'r') as textFile:
-        out = json.loads(textFile.read())["token"]
-    return out
+    try:
+        with open(personalityCoresDir + personalityCoreFile, 'r') as textFile:
+            out = json.loads(textFile.read())["token"]
+        return out
+    except (FileNotFoundError, IOError): return "" # Cancels operation in bot manager
 def GetLocalisation(language):
     with open(localisationDir + language + localisationSuffix, 'r') as locfile:
         out = json.loads(locfile.read())
