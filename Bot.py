@@ -11,19 +11,18 @@ from telegram.ext import MessageHandler # The MessageHandler class allows functi
 from telegram.ext import Filters # Filters allow commands and messages to fall through under certain conditions 
 
 class Bot:
-    corePackage = "Cores.FunctionalityCores." # Path to the directory where the personality cores are located (in package form)
-
     # The bot is initialised with references to a personality core .json file and functionality core .py files
     def __init__(self, personalityCoreFile, functionalityCores, cleanStart):
+        self.corePackage = "Cores.FunctionalityCores." # Path to the directory where the personality cores are located (in package form)
         self.logger = BotLog.Logger() # The logger serves as an intermediate between the bot and it's personal files
         self.personalityCore = self.logger.ReadPersonalityCore(personalityCoreFile) # The personality core contains information such as the authentication token of the bot
-        self.functionalityCores = [importlib.import_module(corePackage + core) for core in functionalityCores]
+        self.functionalityCores = [importlib.import_module(self.corePackage + core) for core in functionalityCores]
         self.updater = Updater(self.personalityCore["token"], use_context = True) # The Updater takes the authentication token as an argument, allowing it to build the API connection. use_context = True is used to specify that we are using the new context system of the python-telegram-bot library
         self.dispatcher = self.updater.dispatcher
         self.cleanStart = cleanStart
         self.commands = []
         self.messageHandlers = []
-        for core in functionalityCores:
+        for core in self.functionalityCores:
             # Add all of the commands and message handlers belonging to the functionality cores to the command list
             self.commands.extend(core.GetCommands())
             self.messageHandlers.extend(core.GetMessageHandlers())
