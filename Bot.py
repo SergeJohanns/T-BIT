@@ -11,15 +11,14 @@ from telegram.ext import MessageHandler # The MessageHandler class allows functi
 from telegram.ext import Filters # Filters allow commands and messages to fall through under certain conditions 
 
 class Bot:
-    shutDownTimeOut = 10 # Maximum time to wait for the updater to stop running on shutdown (in seconds)
     corePackage = "Cores.FunctionalityCores." # Path to the directory where the personality cores are located (in package form)
 
     # The bot is initialised with references to a personality core .json file and functionality core .py files
     def __init__(self, personalityCoreFile, functionalityCores, cleanStart):
         self.logger = BotLog.Logger() # The logger serves as an intermediate between the bot and it's personal files
-        self.personalityCore = self.logger.ReadPersonalityCore(personalityCoreFile)) # The personality core contains information such as the authentication token of the bot
+        self.personalityCore = self.logger.ReadPersonalityCore(personalityCoreFile) # The personality core contains information such as the authentication token of the bot
         self.functionalityCores = [importlib.import_module(corePackage + core) for core in functionalityCores]
-        self.updater = Updater(self.personalityCore.token, use_context = True) # The Updater takes the authentication token as an argument, allowing it to build the API connection. use_context = True is used to specify that we are using the new context system of the python-telegram-bot library
+        self.updater = Updater(self.personalityCore["token"], use_context = True) # The Updater takes the authentication token as an argument, allowing it to build the API connection. use_context = True is used to specify that we are using the new context system of the python-telegram-bot library
         self.dispatcher = self.updater.dispatcher
         self.cleanStart = cleanStart
         self.commands = []
@@ -34,8 +33,8 @@ class Bot:
         for pair in self.messageHandlers:
             # Add all of the handlers for the messages, making sure the messages are piped through to the right functions
             self.dispatcher.add_handler(MessageHandler(pair[0], pair[1]))
-        self.dispatcher.add_handler(CommandHandler(Filters.command, self.unknowncommand)) # Add a final catch-all
-        self.dispatcher.add_handler(CommandMessage(Filters.text, self.unknownmessage)) # Add a final catch-all
+        self.dispatcher.add_handler(MessageHandler(Filters.command, self.unknowncommand)) # Add a final catch-all
+        self.dispatcher.add_handler(MessageHandler(Filters.text, self.unknownmessage)) # Add a final catch-all
 
     # Standard bot methods
     def unknowncommand(self, update, context):
@@ -53,6 +52,4 @@ class Bot:
     def Start(self):
         self.updater.start_polling(clean = self.cleanStart) # If clean = True all updates from before the bot was turned on will be ignored 
     def Stop(self):
-        self.updater.stop(10) # Tell the updater to stop running, time out after 10 seconds
-        if self.updater.running: # If the updater is then still running
-            raise SystemExit # Kill the thread by force
+        self.updater.stop() # Tell the updater to stop running

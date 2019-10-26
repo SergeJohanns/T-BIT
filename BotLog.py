@@ -10,6 +10,6 @@ class Logger:
             with open(self.coreDirectory + coreName) as core:
                 out = json.loads(core.read()) # Get the stored json in dictionary form
         except:
-            print("Could not load personality core")
+            print("Could not load personality core") # To be replaced by more integrated logging
             out = dict([]) # Set information to empty dictionary
         return out # Return the core in dictionary form (or an empty dictionary on failure)
