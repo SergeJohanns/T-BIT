@@ -1,6 +1,6 @@
 def GetCommands(): # Return a list of commandstring-callback tuples
     return [
-        ("hi", hi)
+        ("hi hello", hi)
     ]
 def GetMessageHandlers(): # Return a list of message-callback tuples
     return [

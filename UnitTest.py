@@ -48,20 +48,17 @@ except Exception as e:
 import CentralLog
 
 """ TESTS
-Fetch localisation
 Fetch token
 """
 
 core = "TestCore.json" # Valid personality core with existing token
 language = "EN" # Valid language
-try: CentralLog.GetLocalisation(language); print(PASS)
-except Exception as e: print(FAIL + ": {}".format(e))
 try: CentralLog.GetBotToken(core); print(PASS)
 except Exception as e: print(FAIL + ": {}".format(e))
 
 # Test Command Line
 from CommandLine import CommandLine
-commandLine = CommandLine()
+commandLine = CommandLine(None)
 
 """ TESTS
 Give error
