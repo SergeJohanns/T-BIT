@@ -26,6 +26,7 @@ class Bot:
             # Add all of the commands and message handlers belonging to the functionality cores to the command list
             self.commands.extend(core.GetCommands())
             self.messageHandlers.extend(core.GetMessageHandlers())
+        self.commands = [(synonym, pair[1]) for pair in self.commands for synonym in pair[0].split(" ")] # Split out space-seperated synonyms
         for pair in self.commands:
             # Add all of the handlers for the commands, making sure the commands are piped through to the right functions
             self.dispatcher.add_handler(CommandHandler(pair[0], pair[1]))
