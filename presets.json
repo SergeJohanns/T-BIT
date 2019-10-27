@@ -1,0 +1,9 @@
+{
+    "Test": {
+        "cleanstart": false,
+        "functionalitycores": [
+            "Test"
+        ],
+        "personalitycore": "TestCore.json"
+    }
+}
