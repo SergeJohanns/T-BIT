@@ -73,6 +73,12 @@ def ShutDown():
     commandLine.Display("Finalising...")
     raise SystemExit
 
+def Preset(name, personalityCore, functionalityCores, clean):
+    CentralLog.NewPreset(name, personalityCore, functionalityCores, clean)
+
+def LoadPreset(name):
+    return CentralLog.LoadPreset(name)
+
 # Global access
 language = "EN"
 commandLine = CommandLine(None)
@@ -85,6 +91,8 @@ if __name__ == "__main__":
         "callbacks":{
             "newbot":botInterface.NewBot,
             "stopbotbyid":botInterface.StopBotByID,
+            "preset":Preset,
+            "loadpreset":LoadPreset,
             "info":botInterface.Info,
             "stop":ShutDown
         }
