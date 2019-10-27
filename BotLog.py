@@ -27,7 +27,7 @@ class Logger:
     def LogRecurse(self, dict, path, payLoad):
         if len(path) == 1: dict[path[0]] = payLoad # If there is only one key left, write the payload to the slot
         else: self.LogRecurse(dict[path[0]], path[1:], payLoad) # Else, repeat the function one place further in the path
-    def PersistentLogRead(self, logPath, payLoad):
+    def PersistentLogRead(self, logPath):
         self.ReadRecurse(self.logData, logPath)
     def ReadRecurse(self, dict, path):
         if len(path) == 1: return dict[path[0]] # If there is only one key left, read the value from the slot
