@@ -24,15 +24,19 @@ class Logger:
         return out # Return the core in dictionary form (or an empty dictionary on failure)
     def PersistentLog(self, logPath, payLoad):
         self.LogRecurse(self.logData, logPath, payLoad)
-    def LogRecurse(self, dict, path, payLoad):
-        if len(path) == 1: dict[path[0]] = payLoad # If there is only one key left, write the payload to the slot
-        else: self.LogRecurse(dict[path[0]], path[1:], payLoad) # Else, repeat the function one place further in the path
+    def LogRecurse(self, datadict, path, payLoad):
+        if len(path) == 1: datadict[path[0]] = payLoad # If there is only one key left, write the payload to the slot
+        elif path[0] in datadict: self.LogRecurse(datadict[path[0]], path[1:], payLoad) # If the current key does exist, repeat the function one place further in the path
+        else: # Else, create an empty dictionary at that key and repeat
+            datadict[path[0]] = dict([])
+            self.LogRecurse(datadict[path[0]], path[1:], payLoad)
+
     def PersistentLogRead(self, logPath):
         self.ReadRecurse(self.logData, logPath)
-    def ReadRecurse(self, dict, path):
+    def ReadRecurse(self, datadict, path):
         try:
-            if len(path) == 1: return dict[path[0]] # If there is only one key left, read the value from the slot
-            else: self.LogRecurse(dict[path[0]], path[1:]) # Else, repeat the function one place further in the path
+            if len(path) == 1: return datadict[path[0]] # If there is only one key left, read the value from the slot
+            else: self.LogRecurse(datadict[path[0]], path[1:]) # Else, repeat the function one place further in the path
         except KeyError: # If a key is missing
             return None
             if path: print("Could not find key " + path[0] + " in persistent bot log")
