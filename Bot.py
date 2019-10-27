@@ -27,7 +27,7 @@ class Bot:
             self.commands.extend(core.GetCommands())
             self.messageHandlers.extend(core.GetMessageHandlers())
             try: core.SetBotInfo(self)
-            except AttributeError: pass
+            except AttributeError: pass # If the function doesn't exist, just pass
         self.commands = [(synonym, pair[1]) for pair in self.commands for synonym in pair[0].split(" ")] # Split out space-seperated synonyms
         for pair in self.commands:
             # Add all of the handlers for the commands, making sure the commands are piped through to the right functions
