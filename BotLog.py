@@ -30,8 +30,12 @@ class Logger:
     def PersistentLogRead(self, logPath):
         self.ReadRecurse(self.logData, logPath)
     def ReadRecurse(self, dict, path):
-        if len(path) == 1: return dict[path[0]] # If there is only one key left, read the value from the slot
-        else: self.LogRecurse(dict[path[0]], path[1:]) # Else, repeat the function one place further in the path
+        try:
+            if len(path) == 1: return dict[path[0]] # If there is only one key left, read the value from the slot
+            else: self.LogRecurse(dict[path[0]], path[1:]) # Else, repeat the function one place further in the path
+        except KeyError: # If a key is missing
+            return None
+            if path: print("Could not find key " + path[0] + " in persistent bot log")
     def ExitLog(self):
         try:
             with open(self.coreDirectory + "p_" + self.stashedCore, 'r') as core:
