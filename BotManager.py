@@ -21,7 +21,7 @@ class BotInterface:
         if not token:
             commandLine.GiveError("Core not found")
             return
-        if not token in self.bots or self.bots[token] is None: # If the bot token is not already used
+        if not token in self.bots: # If the bot token is not already used
             self.bots[token] = Bot(personalityCoreFile, functionalityCores, cleanStart)
             self.bots[token].Start() # Start the bot automatically
             self.botIDs.append((self.botID, token))
@@ -33,7 +33,7 @@ class BotInterface:
             if self.bots[bot].personalityCore["token"] == token: # If the bot is the one to be stopped
                 self.bots[bot].Stop() # Halt the bot
                 commandLine.Display("Killed bot {}".format(self.bots[token].personalityCore["callname"]))
-                self.bots[bot] = None # Remove the entry
+                del self.bots[bot] # Remove the entry
                 for i in range(len(self.botIDs)):
                     if self.botIDs[i][1] == token:
                         del self.botIDs[i]
