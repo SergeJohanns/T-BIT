@@ -29,16 +29,15 @@ class BotInterface:
         else: # Give an error when the token is already used
             commandLine.GiveError("This bot token is already in use. Bot tokens should not be used multiple times in parallel")
     def StopBot(self, token):
-        for bot in self.bots:
-            if self.bots[bot].personalityCore["token"] == token: # If the bot is the one to be stopped
-                self.bots[bot].Stop() # Halt the bot
-                commandLine.Display("Killed bot {}".format(self.bots[token].personalityCore["callname"]))
-                del self.bots[bot] # Remove the entry
-                for i in range(len(self.botIDs)):
-                    if self.botIDs[i][1] == token:
-                        del self.botIDs[i]
-                        break
-                return # Return without checking the others
+        if token in self.bots:
+            self.bots[token].Stop() # Halt the bot
+            commandLine.Display("Killed bot {}".format(self.bots[token].personalityCore["callname"]))
+            del self.bots[token] # Remove the entry
+            for i in range(len(self.botIDs)):
+                if self.botIDs[i][1] == token:
+                    del self.botIDs[i]
+                    break
+            return # Return without checking the others
     def StopBotByID(self, ID): # Translate the ID into a token, then defer to the standard method
         token = ""
         for pair in self.botIDs:
@@ -67,8 +66,9 @@ class SanityChecker:
         return (passed, errors)
 
 def ShutDown():
+    bots = list(botInterface.bots.keys())
     commandLine.Display("Shutting down bots...")
-    for bot in botInterface.bots:
+    for bot in bots:
         botInterface.StopBot(bot)
     commandLine.Display("Finalising...")
     raise SystemExit
