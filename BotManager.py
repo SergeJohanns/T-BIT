@@ -98,5 +98,6 @@ if __name__ == "__main__":
         }
     }
     commandLine = CommandLine(managerData)
+    commandLine.Splash()
     commandLine.Listen()
     #botInterface.NewBot()

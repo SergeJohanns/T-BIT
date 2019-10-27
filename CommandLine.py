@@ -33,7 +33,7 @@ class CommandLine:
 
     # Display 
     def Splash(self): # Show splashscreen
-        print("T-BIT Terminal Interface\n")
+        print("T-BIT Terminal Interface\nType :h for help\n")
     def GiveError(self, errorString): # Display an error
         self.Display(errorString)
     def Display(self, message): # Show a message
@@ -74,7 +74,7 @@ class CommandLine:
     def Info(self, args):
         self.managerData["callbacks"]["info"]()
     def Help(self, args):
-        self.Display("q | shut down manager\nb | new bot\nk | kill bot\nh | help\ni | manager info\nc | credit")
+        self.Display("q | shut down manager\nb | new bot\nk | kill bot\np | set bot preset\nl | load bot preset\nh | help\ni | manager info\nc | credit")
     def Credit(self, args):
         self.Display("Made by Serge Johanns. Features inspired in part by Remco Johanns.")
     def Stop(self, args):
